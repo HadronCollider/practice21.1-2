@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/new_list"
+        android:title="Create new list"
+        android:visible="true" />
+    <item
+        android:id="@+id/groups"
+        android:title="Open my groups"
+        android:visible="true" />
+    <item
+        android:id="@+id/help_feedback"
+        android:title="Help &amp; feedback"
+        android:visible="true" />
+    <item
+        android:id="@+id/log_out"
+        android:title="Log out"
+        android:visible="true" />
+
+</menu>
