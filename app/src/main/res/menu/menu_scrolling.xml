@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.makentoshe.androidgithubcitemplate.ScrollingActivity">
+    <item
+        android:id = "@+id/action_new_list"
+        android:orderInCategory="1"
+        android:title="@string/new_list"
+        />
+    <item
+        android:id="@+id/action_my_groups"
+        android:orderInCategory="2"
+        android:title="@string/my_groups"
+        />
+    <item
+        android:title="@string/help_feedback"
+        android:id="@+id/action_help_feedback"
+        android:orderInCategory="3"
+        />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"
+        />
+</menu>
