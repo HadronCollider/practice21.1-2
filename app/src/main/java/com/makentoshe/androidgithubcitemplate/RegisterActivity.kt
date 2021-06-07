@@ -6,13 +6,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.Empty
 import com.makentoshe.androidgithubcitemplate.data.Data
 import com.makentoshe.androidgithubcitemplate.data.User
 
@@ -22,9 +17,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val inputEmailField = findViewById<EditText>(R.id.userEmailField)
-        val inputPassOneField = findViewById<EditText>(R.id.userPassFieldOne)
-        val inputPassTwoField = findViewById<EditText>(R.id.userPassFieldTwo)
+        val inputEmailField = findViewById<EditText>(R.id.userEmailRegField)
+        val inputPassOneField = findViewById<EditText>(R.id.userPassRegFieldOne)
+        val inputPassTwoField = findViewById<EditText>(R.id.userPassRegFieldTwo)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
 
         btnRegister.setOnClickListener() {
@@ -70,9 +65,9 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun successReg() {
-        findViewById<EditText>(R.id.userEmailField).setText("")
-        findViewById<EditText>(R.id.userPassFieldOne).setText("")
-        findViewById<EditText>(R.id.userPassFieldTwo).setText("")
+        findViewById<EditText>(R.id.userEmailRegField).setText("")
+        findViewById<EditText>(R.id.userPassRegFieldOne).setText("")
+        findViewById<EditText>(R.id.userPassRegFieldTwo).setText("")
 
         Log.d(TAG, "Success!")
     }
