@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/new_list"
-        android:title="Create new list"
+        android:title="Create a new list"
         android:visible="true" />
     <item
         android:id="@+id/groups"
