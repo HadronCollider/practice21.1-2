@@ -27,10 +27,24 @@ class RegisterActivity : AppCompatActivity() {
             var uPassOne = inputPassOneField.text.toString().trim()
             var uPassTwo = inputPassTwoField.text.toString().trim()
 
-            if (uPassOne == uPassTwo) {
-                register(uEmail, uPassOne)
+            if (uEmail.isNotBlank()) {
+                if (uPassOne.isNotBlank()) {
+                    if (uPassTwo.isNotBlank()) {
+
+                        if (uPassOne == uPassTwo) {
+                            register(uEmail, uPassOne)
+                        } else {
+                            differentPassError()
+                        }
+
+                    } else {
+                        emptyPassRepeat()
+                    }
+                } else {
+                    emptyPass()
+                }
             } else {
-                differentPassError()
+                emptyEmail()
             }
         }
     }
@@ -74,6 +88,18 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun failReg(e: Exception) {
         Log.d(TAG, "Fail!", e)
+    }
+
+    private fun emptyEmail() {
+        Toast.makeText(this, "Fill in the email", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun emptyPass() {
+        Toast.makeText(this, "Fill in the password", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun emptyPassRepeat() {
+        Toast.makeText(this, "repeat the password", Toast.LENGTH_SHORT).show()
     }
 
     private fun differentPassError() {
