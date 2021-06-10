@@ -12,15 +12,4 @@
         android:orderInCategory="2"
         android:title="@string/my_groups"
         />
-    <item
-        android:title="@string/help_feedback"
-        android:id="@+id/action_help_feedback"
-        android:orderInCategory="3"
-        />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"
-        />
 </menu>
