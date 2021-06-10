@@ -4,8 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ListView
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.PopupMenu
+
+import kotlinx.android.synthetic.main.activity_main
+
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.Collections.addAll
+import java.util.ArrayList
+import java.util.List
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+//POPUP MENU
 private fun showMenu(v: View, @MenuRes menuRes: Int) {
     val popup = PopupMenu(v.context!!, v)
     popup.menuInflater.inflate(menuRes, popup.menu)
