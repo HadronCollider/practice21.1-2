@@ -6,9 +6,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.makentoshe.androidgithubcitemplate.data.User
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,61 +16,26 @@ class LoginActivity : AppCompatActivity() {
         val userPassField = findViewById<EditText>(R.id.userPassLoginField)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
+        val loginUser = AuthUsers()
         btnLogin.setOnClickListener() {
-            var uEmail = userEmailField.text.toString().trim()
+            val uEmail = userEmailField.text.toString().trim()
             val uPass = userPassField.text.toString().trim()
 
-            login(uEmail, uPass)
+
+            if (loginUser.validFormLogin(uEmail, uPass)) {
+
+                val idsList = listOf(userEmailField, userPassField)
+                loginUser.logUser(this, uEmail, uPass, idsList)
+
+            } else {
+                Toast.makeText(this, "Проверьте заполнение формы", Toast.LENGTH_SHORT).show()
+                Log.d(RegisterActivity.ERRORTAG, "Form validation incomplete")
+            }
 
         }
     }
 
-    private fun login(email: String, pass: String) {
-
-        val db = Firebase.firestore
-        val docRef = db.collection(COLLECTION).document(email)
-
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document.data != null) {
-                    val gotUser = document.toObject(User::class.java)
-
-                    if (pass == gotUser?.password.toString()) {
-
-                        // redirect on another activity
-                        redirect(gotUser)
-                        // redirect on another activity
-
-                    } else {
-                        noUserWithEmailPassFound()
-                    }
-                } else {
-                    noUserWithEmailPassFound()
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.d(TAG, "Some error: ", e)
-                somethingWentWrong()
-            }
-    }
-
-    private fun redirect(user: User?) {
-        // will be added later
-
-        // toast is a placeholder
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun noUserWithEmailPassFound() {
-        Toast.makeText(this, "Incorrect email or password", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun somethingWentWrong() {
-        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-    }
-
     companion object {
-        const val TAG = "LOGIN-ACTIVITY"
-        const val COLLECTION = "users"
+        const val ERRORTAG = "LOGIN-ERROR"
     }
 }

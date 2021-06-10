@@ -14,8 +14,16 @@ class AuthUsers {
     private var user: User? = null
 
 
-    fun validForm(email: String, passOne: String, passTwo: String): Boolean {
+    fun validFormRegister(email: String, passOne: String, passTwo: String): Boolean {
         if (email.isNotBlank() && passOne.isNotBlank() && passTwo.isNotBlank() && passOne == passTwo) {
+            return true
+        }
+
+        return false
+    }
+
+    fun validFormLogin(email: String, pass: String): Boolean {
+        if (email.isNotBlank() && pass.isNotBlank()) {
             return true
         }
 
@@ -25,15 +33,15 @@ class AuthUsers {
     fun regUser(context: Context, email: String, pass: String, fields: List<EditText>) {
         val db = Firebase.firestore
         user = User(email, pass, null, Data())
-        val docRef = db.collection(REGUSERCOLLECTION).document(email)
+        val docRef = db.collection(AUTHUSERCOLLECTION).document(email)
 
         docRef.get()
             .addOnSuccessListener { doc ->
                 if (doc.data != null) {
                     Toast.makeText(context, "Пользователь с таким email уже существует", Toast.LENGTH_SHORT).show()
-                    Log.d(TAGERROR, "User already exists")
+                    Log.d(TAGERRORREG, "User already exists")
                 } else {
-                    db.collection(REGUSERCOLLECTION).document(email).set(user!!).addOnSuccessListener {
+                    db.collection(AUTHUSERCOLLECTION).document(email).set(user!!).addOnSuccessListener {
                         cleanFields(fields)
 
                         // here will be redirect for main page of an application
@@ -43,7 +51,34 @@ class AuthUsers {
             }
             .addOnFailureListener { e ->
                 Toast.makeText(context, "Непредвиденная ошибка", Toast.LENGTH_SHORT).show()
-                Log.d(TAGERROR, e.message.toString())
+                Log.d(TAGERRORREG, e.message.toString())
+            }
+    }
+
+    fun logUser(context: Context, email: String, pass: String, fields: List<EditText>) {
+        val db = Firebase.firestore
+        user = User(email, pass, null, Data())
+        val docRef = db.collection(AUTHUSERCOLLECTION).document(email)
+
+        docRef.get()
+            .addOnSuccessListener { doc ->
+                if (doc.data != null) {
+                    user = doc.toObject(User::class.java)
+
+                    if (pass == user?.password.toString()) {
+
+                        cleanFields(fields)
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
+                    } else {
+                        Toast.makeText(context, "Email или пароль неверен", Toast.LENGTH_SHORT).show()
+                        Log.d(TAGERRORLOG, "User already exists")
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(context, "Непредвиденная ошибка", Toast.LENGTH_SHORT).show()
+                Log.d(TAGERRORLOG, e.message.toString())
             }
     }
 
@@ -59,7 +94,8 @@ class AuthUsers {
 //    }
 
     companion object {
-        const val REGUSERCOLLECTION = "users"
-        const val TAGERROR = "REGISTER-ERROR"
+        const val AUTHUSERCOLLECTION = "users"
+        const val TAGERRORREG = "REGISTER-ERROR"
+        const val TAGERRORLOG = "LOGIN-ERROR"
     }
 }
