@@ -26,7 +26,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/deleteItemImageView"
+        app:layout_constraintEnd_toStartOf="@+id/menuItemImageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,14 +38,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/separator"
-        app:layout_constraintEnd_toStartOf="@+id/deleteItemImageView"
+        app:layout_constraintEnd_toStartOf="@+id/menuItemImageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/nameTextView"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
         tools:text="No comments" />
 
     <ImageView
-        android:id="@+id/deleteItemImageView"
+        android:id="@+id/menuItemImageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
