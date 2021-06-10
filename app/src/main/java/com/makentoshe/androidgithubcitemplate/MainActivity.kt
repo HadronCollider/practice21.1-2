@@ -16,5 +16,11 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this, RegisterActivity::class.java)
             startActivity(i)
         }
+
+        val btnGoLog = findViewById<Button>(R.id.btnGoLog)
+        btnGoLog.setOnClickListener {
+            val j = Intent(this, LoginActivity::class.java)
+            startActivity(j)
+        }
     }
 }
