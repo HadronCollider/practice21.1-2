@@ -22,101 +22,29 @@ class RegisterActivity : AppCompatActivity() {
         val inputPassTwoField = findViewById<EditText>(R.id.userPassRegFieldTwo)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
 
+        val regUser = AuthUsers()
+
         btnRegister.setOnClickListener() {
             var uEmail = inputEmailField.text.toString().trim()
             var uPassOne = inputPassOneField.text.toString().trim()
             var uPassTwo = inputPassTwoField.text.toString().trim()
 
-            if (uEmail.isNotBlank()) {
-                if (uPassOne.isNotBlank()) {
-                    if (uPassTwo.isNotBlank()) {
+            val idsList = listOf<EditText>(inputEmailField, inputPassOneField, inputPassTwoField)
 
-                        if (uPassOne == uPassTwo) {
-                            register(uEmail, uPassOne)
-                        } else {
-                            differentPassError()
-                        }
-
-                    } else {
-                        emptyPassRepeat()
-                    }
-                } else {
-                    emptyPass()
-                }
+            if (regUser.validForm(uEmail, uPassOne, uPassTwo)) {
+                regUser.regUser(this, uEmail, uPassOne, idsList)
             } else {
-                emptyEmail()
+                Toast.makeText(this, "Проверьте заполнение формы", Toast.LENGTH_SHORT).show()
+                Log.d(ERRORTAG, "Form validation incomplete")
             }
+
         }
-    }
-
-    private fun register(email: String, pass: String) {
-        val db = Firebase.firestore
-
-        var usr = User(email, null, pass, Data())
-
-        val docRef = db.collection(COLLECTION).document(email)
-
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document.data != null) {
-                    emailExistsError()
-                } else {
-                    db.collection(COLLECTION).document(email).set(usr)
-                        .addOnSuccessListener {
-                            successReg()
-                        }
-                        .addOnFailureListener() { e ->
-                            failReg(e)
-                        }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.d(TAG, "Some error: ", e)
-            }
-
-    }
-
-
-
-    private fun successReg() {
-        findViewById<EditText>(R.id.userEmailRegField).setText("")
-        findViewById<EditText>(R.id.userPassRegFieldOne).setText("")
-        findViewById<EditText>(R.id.userPassRegFieldTwo).setText("")
-
-        Log.d(TAG, "Success!")
-    }
-
-    private fun failReg(e: Exception) {
-        Log.d(TAG, "Fail!", e)
-    }
-
-    private fun emptyEmail() {
-        Toast.makeText(this, "Fill in the email", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun emptyPass() {
-        Toast.makeText(this, "Fill in the password", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun emptyPassRepeat() {
-        Toast.makeText(this, "repeat the password", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun differentPassError() {
-        Toast.makeText(this, "Passwords are different", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun emailExistsError() {
-        Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showError() {
-        // Will be added later :/
     }
 
     companion object {
         const val TAG = "REGISTER-ACTIVITY"
         const val COLLECTION = "users"
+        const val ERRORTAG = "REG-ERROR"
     }
 
 }
