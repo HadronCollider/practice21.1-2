@@ -2,7 +2,7 @@ package com.makentoshe.androidgithubcitemplate
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,7 +15,8 @@ import com.makentoshe.androidgithubcitemplate.databinding.ActivityScrollingBindi
 class ScrollingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScrollingBinding
     private var listItems = ArrayList<String>()
-    var adapter: ArrayAdapter<String>? = null
+    private var adapter: ArrayAdapter<String>? = null
+    private lateinit var EditableText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +32,24 @@ class ScrollingActivity : AppCompatActivity() {
         )
         val list = findViewById<View>(R.id.list) as ListView
         list.adapter = adapter
+
+        EditableText = findViewById<EditText>(R.id.EditText)
     }
 
     private fun addItems(): Boolean {
-        listItems.add("Something: ")
-        adapter?.notifyDataSetChanged()
+        EditableText.setVisibility(View.VISIBLE)
+
+        EditableText.setOnKeyListener(View.OnKeyListener{v, keyCode,event ->
+
+            if(keyCode == KeyEvent.KEYCODE_ENTER){
+                val txt = EditableText.text.toString()
+                listItems.add(txt)
+                adapter?.notifyDataSetChanged()
+                EditableText.setVisibility(View.INVISIBLE)
+                return@OnKeyListener true
+            }
+            return@OnKeyListener false
+        })
         return true
     }
 

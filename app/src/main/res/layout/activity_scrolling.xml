@@ -37,6 +37,18 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/app_bar_height" />
+        android:layout_marginTop="@dimen/app_bar_height" >
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Название?!"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/list"
+        app:layout_anchorGravity="center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
