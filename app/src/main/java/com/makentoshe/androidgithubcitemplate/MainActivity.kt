@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val switchActivityIntent = Intent(this, ScrollingActivity::class.java)
+        val switchActivityIntent = Intent(this, LoginActivity::class.java)
         startActivity(switchActivityIntent)
     }
 }

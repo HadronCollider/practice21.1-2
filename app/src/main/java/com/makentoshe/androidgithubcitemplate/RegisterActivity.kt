@@ -1,10 +1,12 @@
 package com.makentoshe.androidgithubcitemplate
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 class RegisterActivity : AppCompatActivity() {
@@ -12,13 +14,17 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
+        val ReButtonX = findViewById<TextView>(R.id.textView2)
         val inputEmailField = findViewById<EditText>(R.id.userEmailRegField)
         val inputPassOneField = findViewById<EditText>(R.id.userPassRegFieldOne)
         val inputPassTwoField = findViewById<EditText>(R.id.userPassRegFieldTwo)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
 
         val regUser = AuthUsers()
+
+        ReButtonX.setOnClickListener(){val switchActivityIntent = Intent(this, LoginActivity::class.java)
+            startActivity(switchActivityIntent)}
+
 
         btnRegister.setOnClickListener() {
             val uEmail = inputEmailField.text.toString().trim()
@@ -29,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (regUser.validFormRegister(uEmail, uPassOne, uPassTwo)) {
                 regUser.regUser(this, uEmail, uPassOne, idsList)
+
             } else {
                 Toast.makeText(this, "Проверьте заполнение формы", Toast.LENGTH_SHORT).show()
                 Log.d(ERRORTAG, "Form validation incomplete")

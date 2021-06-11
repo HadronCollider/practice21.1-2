@@ -1,9 +1,11 @@
 package com.makentoshe.androidgithubcitemplate
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makentoshe.androidgithubcitemplate.data.Data
@@ -44,7 +46,6 @@ class AuthUsers {
                     db.collection(AUTHUSERCOLLECTION).document(email).set(user!!).addOnSuccessListener {
                         cleanFields(fields)
 
-                        // here will be redirect for main page of an application
 
                     }
                 }
